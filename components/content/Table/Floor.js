@@ -1,17 +1,20 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
-import { useSpring, a } from "react-spring/three";
+import { useRef } from "react";
+import { a } from "react-spring/three";
 
-export default function ({ texture }) {
+export default function ({ texture, rotation, position }) {
   const mesh = useRef();
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
   texture.repeat.set(8, 8);
+
+  // texture.rotation = 1.5;
+  // texture.offset.set(0.5, 0.5);
   return (
     <a.mesh
-      position={[0, -2.515, 0]}
+      position={position}
       ref={mesh}
       scale={[50, 35, 35]}
-      rotation={[-Math.PI / 2, 0, 0]}
+      rotation={rotation}
       receiveShadow
     >
       <planeBufferGeometry attach="geometry" />

@@ -1,8 +1,9 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Canvas } from "react-three-fiber";
 
 import Scene from "./Scene";
 import Controls from "./Controls";
+import { LoadingManager } from "three";
 
 function TableApp() {
   return (

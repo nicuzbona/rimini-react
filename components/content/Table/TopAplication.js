@@ -1,19 +1,13 @@
 import React from "react";
 
-export default function Aplication({
-  material,
-  geometry,
-  position,
-  onApplicationClick,
-}) {
+export default function TopAplication({ material, position }) {
   return (
     <mesh
       position={position}
-      scale={[0.7, 0.7, 0.7]}
-      geometry={geometry}
+      scale={[0.5, 0.5, 1]}
       rotation={[-Math.PI / 2, 0, 0]}
-      onClick={onApplicationClick}
     >
+      <planeBufferGeometry attach="geometry" />
       <meshStandardMaterial attach="material" {...material} />
     </mesh>
   );

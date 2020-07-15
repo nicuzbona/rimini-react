@@ -34,7 +34,7 @@ export default function () {
           plant.nodes["Low-Poly_Plant_"].geometry,
           plant.nodes["Low-Poly_Plant_001"].geometry,
         ]}
-        materials={(plant.materials["Blatt"], plant.materials["Material"])}
+        materials={[plant.materials["Blatt"], plant.materials["Material"]]}
         textures={[baseTexture, topTexture]}
       />
       <Plant
@@ -44,7 +44,7 @@ export default function () {
           plant.nodes["Low-Poly_Plant_"].geometry,
           plant.nodes["Low-Poly_Plant_001"].geometry,
         ]}
-        materials={(plant.materials["Blatt"], plant.materials["Material"])}
+        materials={[plant.materials["Blatt"], plant.materials["Material"]]}
         textures={[baseTexture, topTexture]}
       />
       <Plant
@@ -54,7 +54,7 @@ export default function () {
           plant.nodes["Low-Poly_Plant_"].geometry,
           plant.nodes["Low-Poly_Plant_001"].geometry,
         ]}
-        materials={(plant.materials["Blatt"], plant.materials["Material"])}
+        materials={[plant.materials["Blatt"], plant.materials["Material"]]}
         textures={[baseTexture, topTexture]}
       />
       <Plant
@@ -64,7 +64,7 @@ export default function () {
           plant.nodes["Low-Poly_Plant_"].geometry,
           plant.nodes["Low-Poly_Plant_001"].geometry,
         ]}
-        materials={(plant.materials["Blatt"], plant.materials["Material"])}
+        materials={[plant.materials["Blatt"], plant.materials["Material"]]}
         textures={[baseTexture, topTexture]}
       />
     </>
