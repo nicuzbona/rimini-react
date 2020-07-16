@@ -1,14 +1,13 @@
 import React, { useState, useMemo, useEffect } from "react";
 
 import Lights from "./Lights";
-
-import Leg from "./Table/Leg";
-import Aplication from "./Table/Aplication";
-import TopAplication from "./Table/TopAplication";
-import TopOrnament from "./Table/TopOrnament";
-import Glass from "./Table/Glass";
-import Floor from "./Table/Floor";
-import Plants from "../assets/Plants";
+import Leg from "./parts/Leg";
+import Aplication from "./parts/Aplication";
+import TopAplication from "./parts/TopAplication";
+import TopOrnament from "./parts/TopOrnament";
+import Glass from "./parts/Glass";
+import Floor from "./parts/Floor";
+import Plants from "./assets/Plants";
 
 import { TextureLoader } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";

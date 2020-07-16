@@ -174,12 +174,18 @@ button{
     padding: 0 0 0 10%;
     height: 20%;
 }
+.slider__title a{
+    outline: none
+}
 
 .slider--action{
     width: 100%;
     height: 80%;
     background: #C3C3C3;
     position: relative;
+}
+.slider--action div, .slider--action ul {
+    height: 100%;
 }
 
 

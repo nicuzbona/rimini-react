@@ -15,7 +15,7 @@ function TableApp() {
         height: "100%",
       }}
       camera={{
-        position: [0, 0, 7],
+        position: [0, 4, 9],
         far: 10000,
       }}
     >
