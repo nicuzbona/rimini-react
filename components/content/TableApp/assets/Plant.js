@@ -13,17 +13,17 @@ export default function ({ scale, position, geometrys, materials, textures }) {
       rotation={[0, (3 * Math.PI) / 2, 0]}
     >
       <mesh geometry={geometrys[1]} castShadow>
-        <meshStandardMaterial
+        <meshBasicMaterial
           attach="material"
-          {...materials[0]}
+          // {...materials[0]}
           map={textures[1]}
         />
       </mesh>
 
       <mesh geometry={geometrys[0]} castShadow>
-        <meshStandardMaterial
+        <meshBasicMaterial
           attach="material"
-          {...materials[1]}
+          // {...materials[1]}
           map={textures[0]}
         />
       </mesh>

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import Context from "../../../../store/context";
 import { useRef } from "react";
 import { a } from "react-spring/three";
 

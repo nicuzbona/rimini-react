@@ -14,6 +14,7 @@
     "@react-spring/three": "^9.0.0-rc.3",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
+    "drei": "^0.0.63",
     "grommet": "^2.12.0",
     "grommet-icons": "^4.4.0",
     "next": "9.4.4",
@@ -28,7 +29,7 @@
     "react-masonry-css": "^1.0.14",
     "react-no-ssr": "^1.1.0",
     "react-spring": "^8.0.27",
-    "react-three-fiber": "^4.1.1",
+    "react-three-fiber": "^4.2.17",
     "styled-components": "^5.1.0",
     "three": "^0.115.0",
     "webpack-obj-loader": "^1.0.4"

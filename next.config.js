@@ -15,5 +15,11 @@ module.exports = withPlugins(
     withSass({}),
     withFonts(),
   ],
-  {}
+  {
+    // resolve: {
+    //   alias: {
+    //     three: "/packages/three",
+    //   },
+    // },
+  }
 );

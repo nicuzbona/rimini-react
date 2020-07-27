@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-export default function ({ position }) {
+export default function ({ position, envMap }) {
   return (
     <mesh
       position={position}
@@ -10,9 +10,10 @@ export default function ({ position }) {
       <meshStandardMaterial
         attach="material"
         color="white"
-        metalness={0.8}
-        roughness={0.1}
+        metalness={0.5}
+        roughness={0}
         refractionRatio={0}
+        envMap={envMap}
       />
     </mesh>
   );

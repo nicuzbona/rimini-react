@@ -170,7 +170,9 @@ button{
     font-family: 'Roboto', Helvetica, sans-serif;
     font-weight: 600;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
     padding: 0 0 0 10%;
     height: 20%;
 }
@@ -443,15 +445,13 @@ button{
 }
 
 .second-slider__title{
-    display: flex;
-    justify-content: flex-start;
     width: 65%;
     font-size: .8vw;
 }
 
 .second-slider__title a{
     color: #C3C3C3;
-    text-decoration: none;
+    /* text-decoration: none; */
     margin-right: 2vw;
 
 }

@@ -1,11 +1,15 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useContext } from "react";
+import GlobalStateProvider from "../../../store/GlobalStateProvider";
 import { Canvas } from "react-three-fiber";
-
 import Scene from "./Scene";
-import Controls from "./Controls";
+import Context from "../../../store/context";
+import { OrbitControls } from "drei";
+
 import { LoadingManager } from "three";
 
 function TableApp() {
+  const { globalState, globalDispatch } = useContext(Context);
+
   return (
     <Canvas
       // pixelRatio={window.devicePixelRatio || 1}
@@ -19,10 +23,12 @@ function TableApp() {
         far: 10000,
       }}
     >
-      <Suspense fallback={null}>
-        <Scene />
-      </Suspense>
-      <Controls />
+      <GlobalStateProvider>
+        <Suspense fallback={null}>
+          <Scene gState={globalState} />
+        </Suspense>
+        <OrbitControls />
+      </GlobalStateProvider>
     </Canvas>
   );
 }

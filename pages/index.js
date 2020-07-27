@@ -1,11 +1,14 @@
 import React from "react";
 import MainWrapper from "../components/MainWrapper";
 import App from "../components/App";
+import GlobalStateProvider from "../store/GlobalStateProvider";
 
 function Home() {
   return (
     <MainWrapper>
-      <App />
+      <GlobalStateProvider>
+        <App />
+      </GlobalStateProvider>
     </MainWrapper>
   );
 }

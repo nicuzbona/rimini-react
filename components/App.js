@@ -8,20 +8,29 @@ const TableApp = dynamic(() => import("./content/TableApp/TableApp"), {
   ssr: false,
 });
 import ImageSlider from "./content/sliders/ImageSlider";
-import { mergeClasses } from "@material-ui/styles";
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
   linkActive: {
     color: "#4593aa !important",
+    lineHeight: "150%",
+    borderBottom: "2px solid #4593aa",
   },
+  link: {
+    boxShadow: "none",
+    "&:hover": { textDecoration: "none !important" },
+  },
+  // linkHr: {
+  //   border: "1px solid #4593aa",
+  //   borderRadius: "1px",
+  //   position: "absolute",
+  // },
 }));
 
 export default function App() {
   const classes = useStyles();
   const sliderLinks = ["glass", "legs", "applications"];
   const [sliderLinkActive, setSliderLinkActive] = useState("glass");
-
   const triggerSliderChange = (id) => {
     setSliderLinkActive(id);
   };
@@ -49,18 +58,17 @@ export default function App() {
           </Box>
           <Box className=" slider second-slider">
             <Box className="slider__title second-slider__title">
-              <span>
+              <span style={{ position: "relative" }}>
                 {sliderLinks.map((linkName, index) => {
                   return (
                     <Anchor
                       key={`${linkName}-${index}`}
-                      href="#"
                       label={linkName}
                       id={linkName}
                       onClick={() => {
                         triggerSliderChange(linkName);
                       }}
-                      className={`${
+                      className={`${classes.link} ${
                         sliderLinkActive === linkName ? classes.linkActive : ""
                       }`}
                     />

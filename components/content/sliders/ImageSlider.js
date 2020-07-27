@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import Context from "../../../store/context";
 import {
   CarouselProvider,
   Slider,
@@ -235,7 +236,7 @@ const sliders = {
 
 export default function ({ sliderToSet }) {
   const classes = useStyles();
-
+  const { globalState, globalDispatch } = useContext(Context);
   const [sliderToRender, setSliderToRender] = useState(
     sliderToSet === "glass"
       ? sliders.glassSlider
@@ -257,6 +258,13 @@ export default function ({ sliderToSet }) {
     );
   }, [sliderToSet]);
 
+  const optionClicked = (slot, option) => {
+    globalDispatch({
+      type: `UPDATE_${sliderToSet.toUpperCase()}`,
+      payload: option,
+    });
+  };
+
   return (
     <>
       <CarouselProvider
@@ -271,12 +279,18 @@ export default function ({ sliderToSet }) {
         <ResetSlider sliderToSet={sliderToSet} />
 
         <Slider style={{ height: "100%", outline: "none" }}>
-          {sliderToRender.map((glass, index) => {
+          {sliderToRender.map((option, index) => {
             return (
-              <Slide key={glass.id} index={index} className={classes.slide}>
+              <Slide key={option.id} index={index} className={classes.slide}>
                 <Box className={classes.slideInner}>
-                  <img src={glass.imgSrc} alt={glass.name} />
-                  <span>{glass.name}</span>
+                  <img
+                    src={option.imgSrc}
+                    alt={option.name}
+                    onClick={() => {
+                      optionClicked(sliderToSet, option);
+                    }}
+                  />
+                  <span>{option.name}</span>
                 </Box>
               </Slide>
             );
