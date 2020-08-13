@@ -89,16 +89,15 @@ button{
     width: 100vw;
     height: 70%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     outline: none;
     flex-direction: row !important;
 }
 
 .image-area__img{
-    /* border: 1px solid green; */
-    height: 25vw;
-    width: 83%;
+    height: 29vw;
+    width: 95%;
 }
 
 .hotspotButton{

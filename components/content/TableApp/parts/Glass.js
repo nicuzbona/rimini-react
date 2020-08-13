@@ -1,45 +1,45 @@
 import React, { useRef, useState, useContext, useMemo, useEffect } from "react";
-import Context from "../../../../store/context";
-import { useLoader, useFrame, useThree, useUpdate } from "react-three-fiber";
 import { TextureLoader } from "three";
+import * as THREE from "three";
+import { a } from "react-spring/three";
 
-export function createBoxWithRoundedEdges(
-  width,
-  height,
-  depth,
-  radius0,
-  smoothness
-) {
-  let shape = new THREE.Shape();
-  let eps = 0.00001;
-  let radius = radius0 - eps;
-  shape.absarc(eps, eps, eps, -Math.PI / 2, -Math.PI, true);
-  shape.absarc(eps, height - radius * 2, eps, Math.PI, Math.PI / 2, true);
-  shape.absarc(
-    width - radius * 2,
-    height - radius * 2,
-    eps,
-    Math.PI / 2,
-    0,
-    true
-  );
-  shape.absarc(width - radius * 2, eps, eps, 0, -Math.PI / 2, true);
-  let geometry = new THREE.ExtrudeBufferGeometry(shape, {
-    amount: depth - radius0 * 2,
-    bevelEnabled: true,
-    bevelSegments: smoothness * 2,
-    steps: 1,
-    bevelSize: radius,
-    bevelThickness: radius0,
-    curveSegments: smoothness,
-  });
+// export function createBoxWithRoundedEdges(
+//   width,
+//   height,
+//   depth,
+//   radius0,
+//   smoothness
+// ) {
+//   let shape = new THREE.Shape();
+//   let eps = 0.00001;
+//   let radius = radius0 - eps;
+//   shape.absarc(eps, eps, eps, -Math.PI / 2, -Math.PI, true);
+//   shape.absarc(eps, height - radius * 2, eps, Math.PI, Math.PI / 2, true);
+//   shape.absarc(
+//     width - radius * 2,
+//     height - radius * 2,
+//     eps,
+//     Math.PI / 2,
+//     0,
+//     true
+//   );
+//   shape.absarc(width - radius * 2, eps, eps, 0, -Math.PI / 2, true);
+//   let geometry = new THREE.ExtrudeBufferGeometry(shape, {
+//     amount: depth - radius0 * 2,
+//     bevelEnabled: true,
+//     bevelSegments: smoothness * 2,
+//     steps: 1,
+//     bevelSize: radius,
+//     bevelThickness: radius0,
+//     curveSegments: smoothness,
+//   });
 
-  geometry.center();
+//   geometry.center();
 
-  return geometry;
-}
+//   return geometry;
+// }
 
-export default function ({ envMap, glassState }) {
+export default function ({ envMap, glassState, position, scale }) {
   const materialType = glassState.materials[`${glassState.currentOption.id}`];
 
   let handler,
@@ -74,9 +74,9 @@ export default function ({ envMap, glassState }) {
   }
 
   return (
-    <mesh
-      position={[0, 0.6, 0]}
-      scale={[15, 0.1, 7]}
+    <a.mesh
+      position={position}
+      scale={scale}
       castShadow
       // geometry={createBoxWithRoundedEdges(1, 1, 1, 0.01, 5)}
     >
@@ -111,6 +111,6 @@ export default function ({ envMap, glassState }) {
             />
           );
         })}
-    </mesh>
+    </a.mesh>
   );
 }

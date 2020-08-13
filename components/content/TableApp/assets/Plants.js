@@ -29,7 +29,7 @@ export default function () {
     <>
       <Plant
         scale={[2, 2, 2]}
-        position={[-12, -2.51, -10]}
+        position={[-12, -2, -10]}
         geometrys={[
           plant.nodes["Low-Poly_Plant_"].geometry,
           plant.nodes["Low-Poly_Plant_001"].geometry,
@@ -39,7 +39,7 @@ export default function () {
       />
       <Plant
         scale={[2, 2, 2]}
-        position={[12, -2.51, -10]}
+        position={[12, -2, -10]}
         geometrys={[
           plant.nodes["Low-Poly_Plant_"].geometry,
           plant.nodes["Low-Poly_Plant_001"].geometry,
@@ -49,7 +49,7 @@ export default function () {
       />
       <Plant
         scale={[2, 2, 2]}
-        position={[23, -2.51, 0]}
+        position={[23, -2, 0]}
         geometrys={[
           plant.nodes["Low-Poly_Plant_"].geometry,
           plant.nodes["Low-Poly_Plant_001"].geometry,
@@ -59,7 +59,7 @@ export default function () {
       />
       <Plant
         scale={[2, 2, 2]}
-        position={[-23, -2.51, 0]}
+        position={[-23, -2, 0]}
         geometrys={[
           plant.nodes["Low-Poly_Plant_"].geometry,
           plant.nodes["Low-Poly_Plant_001"].geometry,

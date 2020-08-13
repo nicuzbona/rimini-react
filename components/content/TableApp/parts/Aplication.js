@@ -1,5 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef, useEffect, useLayoutEffect } from "react";
 import { TextureLoader } from "three";
+import * as THREE from "three";
+import { a } from "react-spring/three";
 
 export default function Aplication({
   geometry,
@@ -9,14 +11,15 @@ export default function Aplication({
   envMap,
 }) {
   const materialType = aplState.materials[`${aplState.currentOption.id}`];
+
   return (
-    <mesh
+    <a.mesh
       layers={0}
-      position={position}
       scale={[0.7, 0.7, 0.7]}
       geometry={geometry}
       rotation={[-Math.PI / 2, 0, 0]}
       onClick={onApplicationClick}
+      position={position}
     >
       <meshPhysicalMaterial
         attach="material"
@@ -32,6 +35,6 @@ export default function Aplication({
         side={THREE.DoubleSide}
         // map={glassTexture}
       />
-    </mesh>
+    </a.mesh>
   );
 }

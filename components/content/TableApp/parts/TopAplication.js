@@ -1,16 +1,18 @@
 import React, { useMemo } from "react";
 import { TextureLoader } from "three";
+import * as THREE from "three";
+import { a } from "react-spring/three";
 
 export default function TopAplication({ aplState, position, envMap }) {
   const materialType = aplState.materials[`${aplState.currentOption.id}`];
 
   return (
-    <mesh
+    <a.mesh
       position={position}
-      scale={[0.5, 0.5, 1]}
+      scale={[0.5, 0.5, 0.0027]}
       rotation={[-Math.PI / 2, 0, 0]}
     >
-      <planeBufferGeometry attach="geometry" />
+      <boxBufferGeometry attach="geometry" />
       <meshPhysicalMaterial
         attach="material"
         color={materialType.color}
@@ -25,6 +27,6 @@ export default function TopAplication({ aplState, position, envMap }) {
         side={THREE.DoubleSide}
         // map={glassTexture}
       />
-    </mesh>
+    </a.mesh>
   );
 }

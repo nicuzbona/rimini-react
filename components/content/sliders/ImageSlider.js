@@ -231,7 +231,50 @@ const sliders = {
       price: 12,
     },
   ],
-  floorSlider: [],
+  floorSlider: [
+    {
+      id: 1,
+      name: "Larch",
+      imgSrc: "/includes/objects/floor/optimized_larice_texture.jpg",
+      price: 0,
+    },
+    {
+      id: 2,
+      name: "Granite",
+      imgSrc: "/includes/objects/floor/granite.jpg",
+      price: 0,
+    },
+    {
+      id: 3,
+      name: "Old Rustic",
+      imgSrc: "/includes/objects/floor/floor_1.jpg",
+      price: 0,
+    },
+    {
+      id: 4,
+      name: "White Marble",
+      imgSrc: "/includes/objects/floor/white_tiles.jpg",
+      price: 0,
+    },
+    {
+      id: 5,
+      name: "Dark laminate",
+      imgSrc: "/includes/objects/floor/floor.jpg",
+      price: 0,
+    },
+    {
+      id: 6,
+      name: "Deck",
+      imgSrc: "/includes/objects/floor/floor_2.jpg",
+      price: 0,
+    },
+    {
+      id: 7,
+      name: "Stones",
+      imgSrc: "/includes/objects/floor/stones.jpg",
+      price: 0,
+    },
+  ],
 };
 
 export default function ({ sliderToSet }) {

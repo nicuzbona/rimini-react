@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
+import { a } from "react-spring/three";
 
 export default function ({ position, envMap }) {
   return (
-    <mesh
+    <a.mesh
       position={position}
       //   rotation={[-Math.PI / 2, 0, 0]}
     >
@@ -15,6 +16,6 @@ export default function ({ position, envMap }) {
         refractionRatio={0}
         envMap={envMap}
       />
-    </mesh>
+    </a.mesh>
   );
 }

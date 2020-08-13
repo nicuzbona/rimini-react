@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Box, Anchor } from "grommet";
 // import Masonry from 'react-masonry-css';
-
+import Panels from "./content/panels/";
 import dynamic from "next/dynamic";
 
 const TableApp = dynamic(() => import("./content/TableApp/TableApp"), {
   ssr: false,
 });
+import InfoStatus from "./content/InfoStatus";
 import ImageSlider from "./content/sliders/ImageSlider";
 import { makeStyles } from "@material-ui/styles";
 
@@ -52,7 +53,7 @@ export default function App() {
 
             <Box className="slider--action">
               <Box id="film_roll1">
-                <ImageSlider sliderToSet={"legs"} />
+                <ImageSlider sliderToSet={"floor"} />
               </Box>
             </Box>
           </Box>
@@ -88,33 +89,7 @@ export default function App() {
 
       <Box className="content-right">
         <Box className="right-first-column">
-          <Box className="columnItem first-column__title">
-            <Box className="right-title-content">
-              <span>Basic model from:</span>
-              <span></span>
-            </Box>
-          </Box>
-          <Box className="columnItem first-column__overview">
-            <Box className="overview-item overview__title"></Box>
-            <Box className="overview-item overview__model">
-              Model: <span></span>
-            </Box>
-            <Box className="overview-item overview__size">
-              Size: <span></span>
-            </Box>
-            <Box className="overview-item overview__high">
-              Height: <span></span>
-            </Box>
-            <Box className="overview-item overview__legs">
-              Legs: <span></span>
-            </Box>
-            <Box className="overview-item overview__glas-thikness">
-              Glass/Thikness: <span></span>
-            </Box>
-            <Box className="overview-item overview__application">
-              Application: <span></span>
-            </Box>
-          </Box>
+          <InfoStatus />
           <Box className="columnItem first-column__total">
             <Box className="column-total-content">
               <span>Price:</span>
@@ -131,7 +106,7 @@ export default function App() {
                   </Box>
               </Box>  */}
           <Box className="columnItemSecond second-column__buttons">
-            <Box id="accordion"></Box>
+            <Panels />
           </Box>
         </Box>
       </Box>

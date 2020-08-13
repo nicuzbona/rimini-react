@@ -1,6 +1,7 @@
 import React from "react";
 import { useRef } from "react";
 import { a } from "react-spring/three";
+import * as THREE from "three";
 
 export default function ({ texture, rotation, position }) {
   const mesh = useRef();
@@ -18,7 +19,12 @@ export default function ({ texture, rotation, position }) {
       receiveShadow
     >
       <planeBufferGeometry attach="geometry" />
-      <meshBasicMaterial attach="material" map={texture} />
+      <meshBasicMaterial
+        attach="material"
+        color="white"
+        map={texture}
+        // side={THREE.DoubleSide}
+      />
     </a.mesh>
   );
 }

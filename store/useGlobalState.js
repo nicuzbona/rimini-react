@@ -2,8 +2,10 @@ import { useReducer } from "react";
 
 const defaultState = {
   isLoggedIn: false,
+  tablePosition: [0, -0.6393, 0],
   glass: {
-    position: [[0, 0.6, 0]],
+    scale: [10, 0.1, 7.5],
+    position: [[0, 1.4018000000000002, 0]],
     currentOption: {
       id: 1,
       name: "Milk Glass",
@@ -152,11 +154,12 @@ const defaultState = {
     },
   },
   legs: {
+    scale: [0.5, 2.6, 0.5],
     position: [
-      [5, -1, 2.5], // front right
-      [-5, -1, 2.5], // front left
-      [5, -1, -2.5], // back right
-      [-5, -1, -2.5], // back left
+      [3.3333333333333335, 0, 2.5],
+      [-3.3333333333333335, 0, 2.5],
+      [3.3333333333333335, 0, -2.5],
+      [-3.3333333333333335, 0, -2.5],
     ],
     currentOption: {
       id: 1,
@@ -166,19 +169,19 @@ const defaultState = {
     },
     textures: {
       "1": {
-        src: "/includes/objects/assets/textures/wood/wenge_oak.jpg",
+        src: "/includes/objects/assets/textures/wood/beech_hearthwood.jpg",
       },
       "2": {
         src: "/includes/objects/assets/textures/wood/bianco_oak.jpg",
       },
       "3": {
-        src: "/includes/objects/assets/textures/wood/cherry.png",
+        src: "/includes/objects/assets/textures/wood/cherry.jpg",
       },
       "4": {
-        src: "/includes/objects/assets/textures/wood/wenge_oak.jpg",
+        src: "/includes/objects/assets/textures/wood/chrome.jpg",
       },
       "5": {
-        src: "/includes/objects/assets/textures/wood/wenge_oak.jpg",
+        src: "/includes/objects/assets/textures/wood/nickel.jpg",
       },
       "6": {
         src: "/includes/objects/assets/textures/wood/natural_beech.png",
@@ -190,7 +193,7 @@ const defaultState = {
         src: "/includes/objects/assets/textures/wood/rustic_oak.jpg",
       },
       "9": {
-        src: "/includes/objects/assets/textures/wood/wenge_oak.jpg",
+        src: "/includes/objects/assets/textures/wood/titanium_painted.jpg",
       },
       "10": {
         src: "/includes/objects/assets/textures/wood/walnut_hw.png",
@@ -209,16 +212,16 @@ const defaultState = {
   applications: {
     position: {
       bottom: [
-        [5, -2.5, 2.5], // front right
-        [-5, -2.5, 2.5], // front left
-        [5, -2.5, -2.5], // back right
-        [-5, -2.5, -2.5], // back left
+        [3.3333333333333335, -1.35, 2.5],
+        [-3.3333333333333335, -1.35, 2.5],
+        [3.3333333333333335, -1.35, -2.5],
+        [-3.3333333333333335, -1.35, -2.5],
       ],
       top: [
-        [5, 0.5001, 2.5], // front right
-        [-5, 0.5001, 2.5], // front left
-        [5, 0.5001, -2.5], // back right
-        [-5, 0.5001, -2.5], // back left
+        [3.3333333333333335, 1.30135, 2.5],
+        [-3.3333333333333335, 1.30135, 2.5],
+        [3.3333333333333335, 1.30135, -2.5],
+        [-3.3333333333333335, 1.30135, -2.5],
       ],
     },
     currentOption: {
@@ -274,11 +277,63 @@ const defaultState = {
   },
   ornament: {
     position: [
-      [5, 0.5251, 2.5], // front right
-      [-5, 0.5251, 2.5], // front left
-      [5, 0.5251, -2.5], // back right
-      [-5, 0.5251, -2.5], // back left
+      [3.3333333333333335, 1.327, 2.5],
+      [-3.3333333333333335, 1.327, 2.5],
+      [3.3333333333333335, 1.327, -2.5],
+      [-3.3333333333333335, 1.327, -2.5],
     ],
+  },
+  length: {
+    currentOption: {
+      value: 200,
+    },
+  },
+  width: {
+    currentOption: {
+      value: 150,
+    },
+  },
+  height: {
+    currentOption: {
+      value: 100,
+    },
+  },
+  floor: {
+    currentOption: {
+      id: "1",
+    },
+    textures: {
+      "1": {
+        repeatCount: 5,
+        src: "/includes/objects/floor/optimized_larice_texture.jpg",
+      },
+      "2": {
+        repeatCount: 15,
+        src: "/includes/objects/floor/granite.jpg",
+      },
+      "3": {
+        repeatCount: 15,
+        src: "/includes/objects/floor/floor_1.png",
+      },
+      "4": {
+        repeatCount: 4,
+        src: "/includes/objects/floor/white_tiles.jpg",
+      },
+      "5": {
+        repeatCount: 13,
+        src: "/includes/objects/floor/floor.jpg",
+      },
+
+      "6": {
+        repeatCount: 31,
+        src: "/includes/objects/floor/floor_2.jpg",
+      },
+
+      "7": {
+        repeatCount: 15,
+        src: "/includes/objects/floor/stones.png",
+      },
+    },
   },
 };
 
@@ -297,6 +352,235 @@ const reducer = (state, { type, payload = {} }) => {
         ...state,
         applications: { ...state.applications, currentOption: payload },
       };
+    case "UPDATE_LENGTH":
+      return {
+        ...state,
+        length: {
+          ...state.length,
+          currentOption: { ...state.length.currentOption, value: payload },
+        },
+        legs: {
+          ...state.legs,
+          position: [
+            Object.assign([], state.legs.position[0], { [0]: payload / 60 }),
+            Object.assign([], state.legs.position[1], { [0]: -payload / 60 }),
+            Object.assign([], state.legs.position[2], { [0]: payload / 60 }),
+            Object.assign([], state.legs.position[3], { [0]: -payload / 60 }),
+            // [(state.legs.position[1][0] = -payload / 60)],
+            // [(state.legs.position[2][0] = payload / 60)],
+            // [(state.legs.position[3][0] = -payload / 60)],
+          ],
+        },
+        applications: {
+          ...state.applications,
+          position: {
+            bottom: [
+              Object.assign([], state.applications.position.bottom[0], {
+                [0]: payload / 60,
+              }),
+              Object.assign([], state.applications.position.bottom[1], {
+                [0]: -payload / 60,
+              }),
+              Object.assign([], state.applications.position.bottom[2], {
+                [0]: payload / 60,
+              }),
+              Object.assign([], state.applications.position.bottom[3], {
+                [0]: -payload / 60,
+              }),
+            ],
+            top: [
+              Object.assign([], state.applications.position.top[0], {
+                [0]: payload / 60,
+              }),
+              Object.assign([], state.applications.position.top[1], {
+                [0]: -payload / 60,
+              }),
+              Object.assign([], state.applications.position.top[2], {
+                [0]: payload / 60,
+              }),
+              Object.assign([], state.applications.position.top[3], {
+                [0]: -payload / 60,
+              }),
+            ],
+          },
+        },
+        ornament: {
+          ...state.ornament,
+          position: [
+            Object.assign([], state.ornament.position[0], {
+              [0]: payload / 60,
+            }),
+            Object.assign([], state.ornament.position[1], {
+              [0]: -payload / 60,
+            }),
+            Object.assign([], state.ornament.position[2], {
+              [0]: payload / 60,
+            }),
+            Object.assign([], state.ornament.position[3], {
+              [0]: -payload / 60,
+            }),
+          ],
+        },
+        glass: {
+          ...state.glass,
+          scale: Object.assign([], state.glass.scale, {
+            [0]: (payload / 60) * 3,
+          }),
+        },
+      };
+    case "UPDATE_WIDTH":
+      return {
+        ...state,
+        width: {
+          ...state.width,
+          currentOption: { ...state.width.currentOption, value: payload },
+        },
+        legs: {
+          ...state.legs,
+          position: [
+            Object.assign([], state.legs.position[0], { [2]: payload / 60 }),
+            Object.assign([], state.legs.position[1], { [2]: payload / 60 }),
+            Object.assign([], state.legs.position[2], { [2]: -payload / 60 }),
+            Object.assign([], state.legs.position[3], { [2]: -payload / 60 }),
+            // [(state.legs.position[1][0] = -payload / 60)],
+            // [(state.legs.position[2][0] = payload / 60)],
+            // [(state.legs.position[3][0] = -payload / 60)],
+          ],
+        },
+        applications: {
+          ...state.applications,
+          position: {
+            bottom: [
+              Object.assign([], state.applications.position.bottom[0], {
+                [2]: payload / 60,
+              }),
+              Object.assign([], state.applications.position.bottom[1], {
+                [2]: payload / 60,
+              }),
+              Object.assign([], state.applications.position.bottom[2], {
+                [2]: -payload / 60,
+              }),
+              Object.assign([], state.applications.position.bottom[3], {
+                [2]: -payload / 60,
+              }),
+            ],
+            top: [
+              Object.assign([], state.applications.position.top[0], {
+                [2]: payload / 60,
+              }),
+              Object.assign([], state.applications.position.top[1], {
+                [2]: payload / 60,
+              }),
+              Object.assign([], state.applications.position.top[2], {
+                [2]: -payload / 60,
+              }),
+              Object.assign([], state.applications.position.top[3], {
+                [2]: -payload / 60,
+              }),
+            ],
+          },
+        },
+        ornament: {
+          ...state.ornament,
+          position: [
+            Object.assign([], state.ornament.position[0], {
+              [2]: payload / 60,
+            }),
+            Object.assign([], state.ornament.position[1], {
+              [2]: payload / 60,
+            }),
+            Object.assign([], state.ornament.position[2], {
+              [2]: -payload / 60,
+            }),
+            Object.assign([], state.ornament.position[3], {
+              [2]: -payload / 60,
+            }),
+          ],
+        },
+        glass: {
+          ...state.glass,
+          scale: Object.assign([], state.glass.scale, {
+            [2]: (payload / 60) * 3,
+          }),
+        },
+      };
+    case "UPDATE_HEIGHT":
+      return {
+        ...state,
+        height: {
+          ...state.height,
+          currentOption: { ...state.height.currentOption, value: payload },
+        },
+        legs: {
+          ...state.legs,
+          scale: Object.assign([], state.legs.scale, {
+            [1]: (payload / 60) * 1.3,
+          }),
+        },
+        applications: {
+          ...state.applications,
+          position: {
+            bottom: [
+              Object.assign([], state.applications.position.bottom[0], {
+                [1]: -(((payload / 60) * 1.3) / 2) - 0.05,
+              }),
+              Object.assign([], state.applications.position.bottom[1], {
+                [1]: -(((payload / 60) * 1.3) / 2) - 0.05,
+              }),
+              Object.assign([], state.applications.position.bottom[2], {
+                [1]: -(((payload / 60) * 1.3) / 2) - 0.05,
+              }),
+              Object.assign([], state.applications.position.bottom[3], {
+                [1]: -(((payload / 60) * 1.3) / 2) - 0.05,
+              }),
+            ],
+            top: [
+              Object.assign([], state.applications.position.top[0], {
+                [1]: ((payload / 60) * 1.3) / 2 + 0.00135,
+              }),
+              Object.assign([], state.applications.position.top[1], {
+                [1]: ((payload / 60) * 1.3) / 2 + 0.00135,
+              }),
+              Object.assign([], state.applications.position.top[2], {
+                [1]: ((payload / 60) * 1.3) / 2 + 0.00135,
+              }),
+              Object.assign([], state.applications.position.top[3], {
+                [1]: ((payload / 60) * 1.3) / 2 + 0.00135,
+              }),
+            ],
+          },
+        },
+        ornament: {
+          ...state.ornament,
+          position: [
+            Object.assign([], state.ornament.position[0], {
+              [1]: ((payload / 60) * 1.3) / 2 + 0.027,
+            }),
+            Object.assign([], state.ornament.position[1], {
+              [1]: ((payload / 60) * 1.3) / 2 + 0.027,
+            }),
+            Object.assign([], state.ornament.position[2], {
+              [1]: ((payload / 60) * 1.3) / 2 + 0.027,
+            }),
+            Object.assign([], state.ornament.position[3], {
+              [1]: ((payload / 60) * 1.3) / 2 + 0.027,
+            }),
+          ],
+        },
+        glass: {
+          ...state.glass,
+          position: [
+            Object.assign([], state.glass.position[0], {
+              [1]: ((payload / 60) * 1.3) / 2 + 0.1018,
+            }),
+          ],
+        },
+        tablePosition: Object.assign([], state.tablePosition, {
+          [1]: ((payload / 60) * 1.3) / 2 - 1.9393,
+        }),
+      };
+    case "UPDATE_FLOOR":
+      return { ...state, floor: { ...state.floor, currentOption: payload } };
     default:
       return { state };
   }
