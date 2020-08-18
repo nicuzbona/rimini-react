@@ -13,7 +13,6 @@ const config = {
 
 if (!firebase.apps.length) {
   firebase.initializeApp(config);
-  firebase.analytics();
 }
 
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
