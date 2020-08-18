@@ -16,6 +16,7 @@ const useStyles = makeStyles({
     flexDirection: "row",
     justifyContent: "space-between",
     flexWrap: "wrap",
+    marginTop: "10%",
   },
   sliderTitle: {
     width: "100%",

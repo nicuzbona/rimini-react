@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import Context from "../../../store/context";
 import { AppBar, Tabs, Tab } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import SaveAltIcon from "@material-ui/icons/SaveAlt";
 import ReplayIcon from "@material-ui/icons/Replay";
@@ -10,6 +12,9 @@ import EmailIcon from "@material-ui/icons/Email";
 import SwipeableViews from "react-swipeable-views";
 import TabPanel from "./Panel";
 import Sizes from "./features/Sizes";
+import LogginScreen from "../LogginScreen";
+
+import { startLogout } from "../../../actions/auth";
 
 function a11yProps(index) {
   return {
@@ -34,10 +39,28 @@ const useStyles = makeStyles(() => ({
   selectedTabIcon: {
     opacity: 1,
   },
+  swipeRoot: {
+    height: "100%",
+    "& > div": {
+      height: "100%",
+    },
+  },
+  tabContentRoot: {
+    height: "100%",
+    "& > div": {
+      height: "100%",
+    },
+  },
 }));
 
 export default function () {
   const classes = useStyles();
+
+  const {
+    globalState: { login },
+    globalDispatch,
+  } = useContext(Context);
+
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -92,27 +115,72 @@ export default function () {
         </Tabs>
       </AppBar>
       <SwipeableViews
-        // axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}
+        className={classes.swipeRoot}
       >
-        <TabPanel key={"tab1"} value={value} index={0}>
+        <TabPanel
+          className={classes.tabContentRoot}
+          key={"tab1"}
+          value={value}
+          index={0}
+        >
           <Sizes />
         </TabPanel>
-        <TabPanel key={"tab2"} value={value} index={1}>
+        <TabPanel
+          className={classes.tabContentRoot}
+          key={"tab2"}
+          value={value}
+          index={1}
+        >
           {/* download */}
-          Download. This feature will insert all selected options into an pdf
+
+          {login.isLoggedIn ? (
+            <>
+              <span>
+                Download. This feature will insert all selected options into an
+                pdf. LoggedIn user: {login.profile.name}
+              </span>
+              <button
+                onClick={() => {
+                  startLogout().then(() => {
+                    globalDispatch({ type: "LOGOUT", payload: "" });
+                  });
+                }}
+              >
+                {" "}
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <LogginScreen />
+          )}
         </TabPanel>
-        <TabPanel key={"tab3"} value={value} index={2}>
+        <TabPanel
+          className={classes.tabContentRoot}
+          key={"tab3"}
+          value={value}
+          index={2}
+        >
           {/* Start Again */}
           Start new. This feature will reset selected options to default
         </TabPanel>
-        <TabPanel key={"tab4"} value={value} index={3}>
+        <TabPanel
+          className={classes.tabContentRoot}
+          key={"tab4"}
+          value={value}
+          index={3}
+        >
           {/* language change */}
           Language change. This feature will allow user to change the language
           of the app
         </TabPanel>
-        <TabPanel key={"tab5"} value={value} index={4}>
+        <TabPanel
+          className={classes.tabContentRoot}
+          key={"tab5"}
+          value={value}
+          index={4}
+        >
           {/* send email */}
           Send email. This feature will allow user to send an email with the
           current configurations

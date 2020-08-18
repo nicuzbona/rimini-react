@@ -1,4 +1,10 @@
-import React, { useState, useMemo, useEffect, useContext } from "react";
+import React, {
+  useState,
+  useMemo,
+  useEffect,
+  useContext,
+  Suspense,
+} from "react";
 import Context from "../../../store/context";
 
 import Lights from "./Lights";
@@ -15,7 +21,7 @@ import { TextureLoader } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useSpring, a } from "react-spring/three";
 
-import { useLoader, useFrame } from "react-three-fiber";
+import { useLoader, useFrame, Dom } from "react-three-fiber";
 
 const big_wall_texture = "/includes/objects/assets/textures/wall_2.jpg";
 const small_wall_texture = "/includes/objects/assets/textures/wall_3.jpg";
@@ -175,16 +181,16 @@ export default function ({
       <a.group position={springProps.tablePos}>
         {legsState.position.map((position, index) => {
           return (
-            // group Y position correction should be on all table not just on legs
             <a.group key={index}>
               {/* front right group */}
-
-              <Leg
-                texture={texture}
-                position={springProps[`position${index}`]}
-                legsState={legsState}
-                size={springProps.scale}
-              />
+              <Suspense fallback={"<Dom center>Loading...</Dom>"}>
+                <Leg
+                  texture={texture}
+                  position={springProps[`position${index}`]}
+                  legsState={legsState}
+                  size={springProps.scale}
+                />
+              </Suspense>
               <Aplication
                 geometry={applicationNodes.Apl.geometry}
                 aplState={aplState}

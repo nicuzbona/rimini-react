@@ -1,7 +1,6 @@
 // import "../sass/defaults.scss";
 // import "../sass/awesome.scss";
 import "pure-react-carousel/dist/react-carousel.es.css";
-
 // import App from 'next/app'
 
 function MyApp({ Component, pageProps }) {

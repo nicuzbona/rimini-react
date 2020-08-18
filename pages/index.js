@@ -2,6 +2,7 @@ import React from "react";
 import MainWrapper from "../components/MainWrapper";
 import App from "../components/App";
 import GlobalStateProvider from "../store/GlobalStateProvider";
+import "../firebase";
 
 function Home() {
   return (

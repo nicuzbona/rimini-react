@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Box, Anchor } from "grommet";
 // import Masonry from 'react-masonry-css';
 import Panels from "./content/panels/";
@@ -8,9 +8,12 @@ const TableApp = dynamic(() => import("./content/TableApp/TableApp"), {
   ssr: false,
 });
 import InfoStatus from "./content/InfoStatus";
+import Price from "../actions/Price";
 import ImageSlider from "./content/sliders/ImageSlider";
 import { makeStyles } from "@material-ui/styles";
 
+import { firebase, auth } from "../firebase";
+import Context from "../store/context";
 const useStyles = makeStyles((theme) => ({
   linkActive: {
     color: "#4593aa !important",
@@ -35,6 +38,11 @@ export default function App() {
   const triggerSliderChange = (id) => {
     setSliderLinkActive(id);
   };
+
+  const {
+    globalState: { price },
+    globalDispatch,
+  } = useContext(Context);
 
   return (
     <Box className="fullWidthWrapper contentWrapper">
@@ -93,7 +101,10 @@ export default function App() {
           <Box className="columnItem first-column__total">
             <Box className="column-total-content">
               <span>Price:</span>
-              <span></span>
+              <span>
+                {" "}
+                <Price />{" "}
+              </span>
               <button className="check-out-button">Check Out</button>
             </Box>
           </Box>

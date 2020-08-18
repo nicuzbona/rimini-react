@@ -1,7 +1,10 @@
 import { useReducer } from "react";
 
 const defaultState = {
-  isLoggedIn: false,
+  login: {
+    isLoggedIn: false,
+    profile: {},
+  },
   tablePosition: [0, -0.6393, 0],
   glass: {
     scale: [10, 0.1, 7.5],
@@ -10,7 +13,7 @@ const defaultState = {
       id: 1,
       name: "Milk Glass",
       imgSrc: "./images/glass/glass_milk.png",
-      price: 10,
+      price: 19,
     },
     materials: {
       "1": {
@@ -165,7 +168,7 @@ const defaultState = {
       id: 1,
       name: "Beech Hearthwood",
       imgSrc: "./images/legs/legs_beech_hearthwood.png",
-      price: 11,
+      price: 19,
     },
     textures: {
       "1": {
@@ -228,7 +231,7 @@ const defaultState = {
       id: 1,
       name: "Brilliant Gold Finish",
       imgSrc: "./images/applications/application_brilliant_gold_finish.png",
-      price: 12,
+      price: 59,
     },
     materials: {
       "1": {
@@ -335,14 +338,28 @@ const defaultState = {
       },
     },
   },
+  price: {
+    basePrice: 179,
+    total: 0,
+  },
 };
 
 const reducer = (state, { type, payload = {} }) => {
   switch (type) {
     case "LOGIN":
-      return { ...state, isLoggedIn: true };
+      return {
+        ...state,
+        login: {
+          ...state.login,
+          isLoggedIn: true,
+          profile: { ...payload },
+        },
+      };
     case "LOGOUT":
-      return { ...state, isLoggedIn: false };
+      return {
+        ...state,
+        login: { ...state.login, isLoggedIn: false, profile: {} },
+      };
     case "UPDATE_GLASS":
       return { ...state, glass: { ...state.glass, currentOption: payload } };
     case "UPDATE_LEGS":
@@ -581,6 +598,8 @@ const reducer = (state, { type, payload = {} }) => {
       };
     case "UPDATE_FLOOR":
       return { ...state, floor: { ...state.floor, currentOption: payload } };
+    case "UPDATE_PRICE":
+      return { ...state, price: { ...state.price, total: payload } };
     default:
       return { state };
   }

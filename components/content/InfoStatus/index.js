@@ -4,7 +4,7 @@ import Context from "../../../store/context";
 
 export default function index() {
   const {
-    globalState: { width, height, length, glass, legs, applications },
+    globalState: { width, height, length, glass, legs, applications, price },
     globalDispatch,
   } = useContext(Context);
 
@@ -13,14 +13,11 @@ export default function index() {
       <Box className="columnItem first-column__title">
         <Box className="right-title-content">
           <span>Basic model from:</span>
-          <span></span>
+          <span> 272 Eur </span>
         </Box>
       </Box>
       <Box className="columnItem first-column__overview">
-        <Box className="overview-item overview__title"></Box>
-        {/* <Box className="overview-item overview__model">
-          Model: <span></span>
-        </Box> */}
+        <Box className="overview-item overview__title"> Overview</Box>
         <Box className="overview-item overview__size">
           Size:
           <span>

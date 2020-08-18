@@ -1,11 +1,9 @@
 import React, { Suspense, useEffect, useContext } from "react";
 import GlobalStateProvider from "../../../store/GlobalStateProvider";
-import { Canvas } from "react-three-fiber";
+import { Canvas, Dom } from "react-three-fiber";
 import Scene from "./Scene";
 import Context from "../../../store/context";
 import { OrbitControls } from "drei";
-
-import { LoadingManager } from "three";
 
 function TableApp() {
   const { globalState, globalDispatch } = useContext(Context);
@@ -24,10 +22,14 @@ function TableApp() {
       }}
     >
       <GlobalStateProvider>
-        <Suspense fallback={null}>
+        <Suspense fallback={"Loadinsadg..."}>
           <Scene gState={globalState} />
         </Suspense>
-        <OrbitControls />
+        <OrbitControls
+          maxDistance={19}
+          minDistance={1}
+          maxPolarAngle={Math.PI / 2}
+        />
       </GlobalStateProvider>
     </Canvas>
   );
