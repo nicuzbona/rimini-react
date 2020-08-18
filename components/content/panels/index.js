@@ -137,10 +137,11 @@ export default function () {
 
           {login.isLoggedIn ? (
             <>
-              <span>
-                Download. This feature will insert all selected options into an
-                pdf. LoggedIn user: {login.profile.name}
-              </span>
+              <p>
+                Download. This feature will insert all selected options into a
+                pdf.
+              </p>
+              <p> LoggedIn user: {login.profile.name} </p>
               <button
                 onClick={() => {
                   startLogout().then(() => {
@@ -163,7 +164,27 @@ export default function () {
           index={2}
         >
           {/* Start Again */}
-          Start new. This feature will reset selected options to default
+
+          {login.isLoggedIn ? (
+            <>
+              <p>
+                Start new. This feature will reset selected options to default
+              </p>
+              <p> LoggedIn user: {login.profile.name} </p>
+              <button
+                onClick={() => {
+                  startLogout().then(() => {
+                    globalDispatch({ type: "LOGOUT", payload: "" });
+                  });
+                }}
+              >
+                {" "}
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <LogginScreen />
+          )}
         </TabPanel>
         <TabPanel
           className={classes.tabContentRoot}
@@ -172,8 +193,27 @@ export default function () {
           index={3}
         >
           {/* language change */}
-          Language change. This feature will allow user to change the language
-          of the app
+          {login.isLoggedIn ? (
+            <>
+              <p>
+                Language change. This feature will allow user to change the
+                language of the app.
+              </p>
+              <p> LoggedIn user: {login.profile.name}</p>
+              <button
+                onClick={() => {
+                  startLogout().then(() => {
+                    globalDispatch({ type: "LOGOUT", payload: "" });
+                  });
+                }}
+              >
+                {" "}
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <LogginScreen />
+          )}
         </TabPanel>
         <TabPanel
           className={classes.tabContentRoot}
@@ -182,8 +222,27 @@ export default function () {
           index={4}
         >
           {/* send email */}
-          Send email. This feature will allow user to send an email with the
-          current configurations
+
+          {login.isLoggedIn ? (
+            <>
+              <p>
+                Send email. This feature will allow user to send an email with
+                the current configurations
+              </p>
+              <p> LoggedIn user: {login.profile.name} </p>
+              <button
+                onClick={() => {
+                  startLogout().then(() => {
+                    globalDispatch({ type: "LOGOUT", payload: "" });
+                  });
+                }}
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <LogginScreen />
+          )}
         </TabPanel>
       </SwipeableViews>
     </div>

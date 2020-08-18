@@ -40,9 +40,33 @@ export default function App() {
   };
 
   const {
-    globalState: { price },
+    globalState: { price, login },
     globalDispatch,
   } = useContext(Context);
+
+  const handleOrderButton = () => {
+    login.isLoggedIn === true
+      ? alert(`
+    Hi${
+      !!login.profile.name
+        ? ` ${login.profile.name}`
+        : !!login.profile.login === true
+        ? `${login.profile.login}`
+        : ""
+    }! 
+    Thank you for your order.
+
+    An email with the configurations has been sent to the manufacturer.
+    We will contact you as soon as posible over email.
+    
+    Have a nice day!`)
+      : alert(`
+    Hi there!
+    
+    You must be logged in for this action.
+    
+    Good day!`);
+  };
 
   return (
     <Box className="fullWidthWrapper contentWrapper">
@@ -105,7 +129,9 @@ export default function App() {
                 {" "}
                 <Price />{" "}
               </span>
-              <button className="check-out-button">Check Out</button>
+              <button className="check-out-button" onClick={handleOrderButton}>
+                Order Now
+              </button>
             </Box>
           </Box>
         </Box>
