@@ -23,7 +23,8 @@ const facebookAuthprovider = new firebase.auth.FacebookAuthProvider();
 facebookAuthprovider.addScope("user_birthday");
 
 const githubAuthProvider = new firebase.auth.GithubAuthProvider();
-githubAuthProvider.addScope("repo");
+githubAuthProvider.addScope("profile");
+githubAuthProvider.addScope("email");
 
 const twitterAuthProvider = new firebase.auth.TwitterAuthProvider();
 

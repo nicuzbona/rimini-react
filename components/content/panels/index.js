@@ -135,6 +135,7 @@ export default function () {
         >
           {/* download */}
 
+          {/* SHADOWS FOR THE TABLE */}
           {login.isLoggedIn ? (
             <>
               <p>

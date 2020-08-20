@@ -6,6 +6,7 @@ import React, {
   Suspense,
 } from "react";
 import Context from "../../../store/context";
+import Text from "./assets/Text";
 
 import Lights from "./Lights";
 import Leg from "./parts/Leg";
@@ -37,13 +38,18 @@ export default function ({
     floor: floorState,
   },
 }) {
-  const texture = useMemo(
-    () =>
-      new TextureLoader().load(
-        legsState.textures[`${legsState.currentOption.id}`].src
-      ),
-    [legsState.textures[`${legsState.currentOption.id}`].src]
-  );
+  const [isLoading, setIsLoading] = useState(false);
+
+  const texture = useMemo(() => {
+    setIsLoading(true);
+    return new TextureLoader().load(
+      legsState.textures[`${legsState.currentOption.id}`].src,
+      () => {
+        // done Function
+        setIsLoading(false);
+      }
+    );
+  }, [legsState.textures[`${legsState.currentOption.id}`].src]);
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
   texture.repeat.set(0.3, 0.3);
 
@@ -183,14 +189,20 @@ export default function ({
           return (
             <a.group key={index}>
               {/* front right group */}
-              <Suspense fallback={"<Dom center>Loading...</Dom>"}>
+              {!isLoading === true ? (
                 <Leg
                   texture={texture}
                   position={springProps[`position${index}`]}
                   legsState={legsState}
                   size={springProps.scale}
                 />
-              </Suspense>
+              ) : (
+                <Text
+                  hAlign="left"
+                  position={[6, 3, -10]}
+                  children="Loading..."
+                />
+              )}
               <Aplication
                 geometry={applicationNodes.Apl.geometry}
                 aplState={aplState}
@@ -209,7 +221,7 @@ export default function ({
             </a.group>
           );
         })}
-
+        {/* <Text hAlign="left" position={[6, 3, -10]} children="Loading..." /> */}
         <Glass
           envMap={envMap}
           glassState={glassState}

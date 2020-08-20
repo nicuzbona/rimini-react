@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useContext } from "react";
+import React, { Suspense, useEffect, useContext, useState } from "react";
 import GlobalStateProvider from "../../../store/GlobalStateProvider";
 import { Canvas, Dom } from "react-three-fiber";
 import Scene from "./Scene";

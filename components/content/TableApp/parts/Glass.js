@@ -2,6 +2,7 @@ import React, { useRef, useState, useContext, useMemo, useEffect } from "react";
 import { TextureLoader } from "three";
 import * as THREE from "three";
 import { a } from "react-spring/three";
+import Text from "../assets/Text";
 
 // export function createBoxWithRoundedEdges(
 //   width,
@@ -42,16 +43,20 @@ import { a } from "react-spring/three";
 export default function ({ envMap, glassState, position, scale }) {
   const materialType = glassState.materials[`${glassState.currentOption.id}`];
 
+  const [isGlassLoading, setGlassLoading] = useState(false);
+
   let handler,
     texture = false,
     glassTextureTop = false,
     glassTextureSides = false;
 
   if (materialType.top.textureLink !== false) {
-    glassTextureTop = useMemo(
-      () => new TextureLoader().load(`${materialType.top.textureLink}`),
-      [materialType.top.textureLink]
-    );
+    glassTextureTop = useMemo(() => {
+      setGlassLoading(true);
+      return new TextureLoader().load(`${materialType.top.textureLink}`, () => {
+        setGlassLoading(false);
+      });
+    }, [materialType.top.textureLink]);
     glassTextureTop.wrapS = glassTextureTop.wrapT = THREE.RepeatWrapping;
     glassTextureTop.repeat.set(
       materialType.top.textureRepeat[0],
@@ -74,43 +79,49 @@ export default function ({ envMap, glassState, position, scale }) {
   }
 
   return (
-    <a.mesh
-      position={position}
-      scale={scale}
-      castShadow
-      // geometry={createBoxWithRoundedEdges(1, 1, 1, 0.01, 5)}
-    >
-      <boxBufferGeometry attach="geometry" />
+    <>
+      {!isGlassLoading === true ? (
+        <a.mesh
+          position={position}
+          scale={scale}
+          castShadow
+          // geometry={createBoxWithRoundedEdges(1, 1, 1, 0.01, 5)}
+        >
+          <boxBufferGeometry attach="geometry" />
 
-      {Array(6)
-        .fill()
-        .map((e, index) => {
-          if (index === 2 || index === 3) {
-            handler = materialType.top;
-            texture = glassTextureTop;
-          } else {
-            handler = materialType.sides;
-            texture = glassTextureSides;
-          }
-          return (
-            <meshPhysicalMaterial
-              key={index}
-              attachArray="material"
-              color={handler.color}
-              transparent
-              refractionRatio={1}
-              roughness={handler.roughness}
-              metalness={handler.metalness}
-              clearCoat={1}
-              clearCoatRoughness={0}
-              reflectivity={handler.reflectivity}
-              opacity={handler.opacity}
-              envMap={envMap}
-              side={handler.doubleSide ? THREE.DoubleSide : null}
-              map={!!texture ? texture : null}
-            />
-          );
-        })}
-    </a.mesh>
+          {Array(6)
+            .fill()
+            .map((e, index) => {
+              if (index === 2 || index === 3) {
+                handler = materialType.top;
+                texture = glassTextureTop;
+              } else {
+                handler = materialType.sides;
+                texture = glassTextureSides;
+              }
+              return (
+                <meshPhysicalMaterial
+                  key={index}
+                  attachArray="material"
+                  color={handler.color}
+                  transparent
+                  refractionRatio={1}
+                  roughness={handler.roughness}
+                  metalness={handler.metalness}
+                  clearCoat={1}
+                  clearCoatRoughness={0}
+                  reflectivity={handler.reflectivity}
+                  opacity={handler.opacity}
+                  envMap={envMap}
+                  side={handler.doubleSide ? THREE.DoubleSide : null}
+                  map={!!texture ? texture : null}
+                />
+              );
+            })}
+        </a.mesh>
+      ) : (
+        <Text hAlign="left" position={[6, 3, -10]} children="Loading..." />
+      )}
+    </>
   );
 }
