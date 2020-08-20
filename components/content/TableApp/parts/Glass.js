@@ -1,4 +1,11 @@
-import React, { useRef, useState, useContext, useMemo, useEffect } from "react";
+import React, {
+  useRef,
+  useState,
+  useContext,
+  useMemo,
+  useEffect,
+  Fragment,
+} from "react";
 import { TextureLoader } from "three";
 import * as THREE from "three";
 import { a } from "react-spring/three";
@@ -50,36 +57,27 @@ export default function ({ envMap, glassState, position, scale }) {
     glassTextureTop = false,
     glassTextureSides = false;
 
+  glassTextureTop = useMemo(() => {
+    if (materialType.top.textureLink === false) return false;
+    setGlassLoading(true);
+    return new TextureLoader().load(`${materialType.top.textureLink}`, () => {
+      // done
+      setGlassLoading(false);
+    });
+  }, [materialType.top.textureLink]);
+
   if (materialType.top.textureLink !== false) {
-    glassTextureTop = useMemo(() => {
-      setGlassLoading(true);
-      return new TextureLoader().load(`${materialType.top.textureLink}`, () => {
-        setGlassLoading(false);
-      });
-    }, [materialType.top.textureLink]);
     glassTextureTop.wrapS = glassTextureTop.wrapT = THREE.RepeatWrapping;
     glassTextureTop.repeat.set(
       materialType.top.textureRepeat[0],
       materialType.top.textureRepeat[1]
     );
-
-    if (materialType.top.textureLink === materialType.sides.textureLink) {
-      glassTextureSides = glassTextureTop;
-    } else {
-      glassTextureSides = useMemo(
-        () => new TextureLoader().load(`${materialType.sides.textureLink}`),
-        [materialType.sides.textureLink]
-      );
-      glassTextureSides.wrapS = glassTextureSides.wrapT = THREE.RepeatWrapping;
-      glassTextureSides.repeat.set(
-        materialType.sides.textureRepeat[0],
-        materialType.sides.textureRepeat[1]
-      );
-    }
   }
 
+  glassTextureSides = glassTextureTop;
+
   return (
-    <>
+    <Fragment>
       {!isGlassLoading === true ? (
         <a.mesh
           position={position}
@@ -122,6 +120,6 @@ export default function ({ envMap, glassState, position, scale }) {
       ) : (
         <Text hAlign="left" position={[6, 3, -10]} children="Loading..." />
       )}
-    </>
+    </Fragment>
   );
 }

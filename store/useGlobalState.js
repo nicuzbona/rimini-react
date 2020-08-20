@@ -48,7 +48,7 @@ const defaultState = {
           metalness: 0.8,
           reflectivity: 4,
           textureLink: false,
-          textureRepeat: [4, 4],
+          textureRepeat: [1, 1],
           doubleSide: true,
         },
         sides: {
@@ -58,7 +58,7 @@ const defaultState = {
           metalness: 0.2,
           reflectivity: 1.7,
           textureLink: false,
-          textureRepeat: [0.5, 5],
+          textureRepeat: [1, 1],
           doubleSide: false,
         },
       },
