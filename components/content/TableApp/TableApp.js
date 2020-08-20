@@ -11,6 +11,8 @@ function TableApp() {
   return (
     <Canvas
       // pixelRatio={window.devicePixelRatio || 1}
+      // colorManagement
+      shadowMap
       style={{
         background: "#ccc",
         width: "100%",

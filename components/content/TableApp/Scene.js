@@ -7,15 +7,13 @@ import React, {
 } from "react";
 import Context from "../../../store/context";
 import Text from "./assets/Text";
+import Room from "./parts/Room";
 
-import Lights from "./Lights";
 import Leg from "./parts/Leg";
 import Aplication from "./parts/Aplication";
 import TopAplication from "./parts/TopAplication";
 import TopOrnament from "./parts/TopOrnament";
 import Glass from "./parts/Glass";
-import Floor from "./parts/Floor";
-import Plants from "./assets/Plants";
 
 import * as THREE from "three";
 import { TextureLoader } from "three";
@@ -23,10 +21,6 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useSpring, a } from "react-spring/three";
 
 import { useLoader, useFrame, Dom } from "react-three-fiber";
-
-const big_wall_texture = "/includes/objects/assets/textures/wall_2.jpg";
-const small_wall_texture = "/includes/objects/assets/textures/wall_3.jpg";
-const top_wall_texture = "/includes/objects/assets/textures/wall_4.jpg";
 
 export default function ({
   gState: {
@@ -38,8 +32,9 @@ export default function ({
     floor: floorState,
   },
 }) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // debugger;
   const texture = useMemo(() => {
     setIsLoading(true);
     return new TextureLoader().load(
@@ -52,46 +47,6 @@ export default function ({
   }, [legsState.textures[`${legsState.currentOption.id}`].src]);
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
   texture.repeat.set(0.3, 0.3);
-
-  const floor_texture = useMemo(() => {
-    let newTexture = new TextureLoader().load(
-      floorState.textures[`${floorState.currentOption.id}`].src
-    );
-    return newTexture;
-  }, [floorState.textures[`${floorState.currentOption.id}`].src]);
-
-  floor_texture.wrapS = floor_texture.wrapT = THREE.RepeatWrapping;
-  floor_texture.repeat.set(
-    floorState.textures[`${floorState.currentOption.id}`].repeatCount,
-    floorState.textures[`${floorState.currentOption.id}`].repeatCount
-  );
-
-  floor_texture.wrapS = floor_texture.wrapT = THREE.RepeatWrapping;
-  // useEffect(() => {
-
-  //   console.log("floor_texture.repeat", floor_texture.repeat);
-  // }, [floor_texture]);
-
-  useFrame(() => {
-    floor_texture.repeat.set(
-      floorState.textures[`${floorState.currentOption.id}`].repeatCount,
-      floorState.textures[`${floorState.currentOption.id}`].repeatCount
-    );
-  });
-
-  // floor_texture.rotation = 0;
-
-  const big_wall = useMemo(() => new TextureLoader().load(big_wall_texture), [
-    big_wall_texture,
-  ]);
-  const top_wall = useMemo(() => new TextureLoader().load(top_wall_texture), [
-    top_wall_texture,
-  ]);
-
-  const small_wall = useMemo(
-    () => new TextureLoader().load(small_wall_texture),
-    [small_wall_texture]
-  );
 
   const [envMap] = useLoader(THREE.CubeTextureLoader, [
     [
@@ -140,49 +95,7 @@ export default function ({
 
   return (
     <group>
-      <Lights />
-      <group>
-        <Floor
-          // bottom
-          texture={floor_texture}
-          position={[0, -2, 0]}
-          rotation={[-Math.PI / 2, 0, 0]}
-        />
-        <Floor
-          // back
-          texture={big_wall}
-          rotation={[0, 0, 0]}
-          position={[0, 0, -15]}
-        />
-
-        <Floor
-          // right
-          texture={small_wall}
-          rotation={[0, -Math.PI / 2, 0]}
-          position={[25, 0, -7.5]}
-        />
-
-        <Floor
-          // left
-          texture={small_wall}
-          rotation={[0, Math.PI / 2, 0]}
-          position={[-25, 0, -7.5]}
-        />
-
-        <Floor
-          // back
-          texture={big_wall}
-          rotation={[0, Math.PI, Math.PI]}
-          position={[0, 0, 17.5]}
-        />
-        <Floor
-          // top
-          texture={top_wall}
-          rotation={[Math.PI / 2, 0, Math.PI]}
-          position={[0, 15, 0]}
-        />
-      </group>
-      <Plants />
+      <Room floorState={floorState} />
 
       <a.group position={springProps.tablePos}>
         {legsState.position.map((position, index) => {
